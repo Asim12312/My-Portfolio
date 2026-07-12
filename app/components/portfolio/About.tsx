@@ -1,6 +1,6 @@
 export function About() {
-  const chips = ["React.js", "Node.js", "MongoDB", "Docker", "Socket.io", "JWT", "TypeScript", "CI/CD"];
-  const chipColors = ["green", "cyan", "yellow", "blue", "orange", "green", "cyan", "yellow"] as const;
+  const chips = ["RAG", "AI Agents", "Python", "Next.js", "React.js", "Node.js", "MongoDB", "AWS", "Docker", "CI/CD"];
+  const chipColors = ["green", "cyan", "yellow", "blue", "orange", "green", "cyan", "yellow", "blue", "orange"] as const;
 
   return (
     <section id="about" className="relative px-6 sm:px-10 py-28 max-w-7xl mx-auto">
@@ -15,14 +15,15 @@ export function About() {
             <span className="inline-block text-foreground/40">shipper.</span>
           </h2>
           <p className="text-lg leading-relaxed text-muted-foreground mb-5">
-            I'm a <strong className="text-foreground">Full-Stack MERN Developer</strong> with a{" "}
-            <span className="px-1.5 rounded bg-[var(--yellow)] text-foreground font-semibold">BS Software Engineering · 3.54 GPA</span>{" "}
+            I'm a <strong className="text-foreground">Software Engineer at VentureDive</strong> and{" "}
+            <strong className="text-foreground">AI Engineer</strong> with a{" "}
+            <span className="px-1.5 rounded bg-[var(--yellow)] text-foreground font-semibold">BS Software Engineering · 3.60 GPA</span>{" "}
             from University of Central Punjab. I don't just push code — I architect systems that scale.
           </p>
           <p className="text-lg leading-relaxed text-muted-foreground mb-5">
-            From <strong className="text-foreground">real-time restaurant dashboards</strong> to{" "}
-            <strong className="text-foreground">ML-powered movie engines</strong> — I build things that
-            actually ship and hold up under load.
+            From a <strong className="text-foreground">live FBR invoicing SaaS (Mohasib)</strong> to{" "}
+            <strong className="text-foreground">RAG pipelines & AI agents</strong> — plus 3+ years of
+            freelance full-stack delivery on Upwork — I build things that actually ship and hold up in production.
           </p>
           <div className="flex flex-wrap gap-2.5 mt-8">
             {chips.map((c, i) => (
@@ -47,7 +48,7 @@ export function About() {
             style={{ boxShadow: "8px 8px 0 0 var(--color-foreground)", transform: "rotate(-4deg)" }}
           >
             <div className="font-mono text-[10px] uppercase tracking-widest text-foreground/70 mb-2">// stack</div>
-            <div className="font-display font-extrabold text-3xl text-foreground">MERN +<br/>Socket.io</div>
+            <div className="font-display font-extrabold text-3xl text-foreground">AI +<br/>Full-Stack</div>
           </div>
 
           <div
@@ -55,7 +56,7 @@ export function About() {
             style={{ boxShadow: "8px 8px 0 0 var(--color-foreground)", transform: "rotate(5deg)" }}
           >
             <div className="text-3xl mb-2">🎓</div>
-            <div className="font-display font-extrabold text-2xl text-foreground leading-tight">3.54 GPA</div>
+            <div className="font-display font-extrabold text-2xl text-foreground leading-tight">3.60 GPA</div>
             <div className="font-mono text-[10px] mt-1 text-foreground/70">UCP · Software Eng.</div>
           </div>
 
@@ -63,9 +64,9 @@ export function About() {
             className="absolute bottom-32 left-12 w-64 rounded-2xl border-2 border-foreground p-5 bg-[var(--orange)] card-sticker-hover"
             style={{ boxShadow: "8px 8px 0 0 var(--color-foreground)", transform: "rotate(3deg)" }}
           >
-            <div className="font-mono text-[10px] uppercase tracking-widest text-foreground/70 mb-2">// realtime</div>
-            <div className="font-display font-extrabold text-xl text-foreground leading-tight">Sub-100ms sync</div>
-            <div className="font-mono text-[10px] mt-1 text-foreground/70">Socket.io · Redux · MVC</div>
+            <div className="font-mono text-[10px] uppercase tracking-widest text-foreground/70 mb-2">// ai systems</div>
+            <div className="font-display font-extrabold text-xl text-foreground leading-tight">RAG & Agents</div>
+            <div className="font-mono text-[10px] mt-1 text-foreground/70">Python · LLMs · Vector Search</div>
           </div>
 
           <div
@@ -92,10 +93,10 @@ export function About() {
         {/* mobile compact stickers */}
         <div className="grid grid-cols-2 gap-4 lg:hidden">
           {[
-            { icon: "//", title: "Real-time", sub: "Socket.io · Redux", bg: "var(--orange)" },
-            { icon: "{}", title: "Docker CI/CD", sub: "ship fast", bg: "var(--green)" },
-            { icon: "()", title: "3.54 GPA", sub: "UCP · SE", bg: "var(--yellow)" },
-            { icon: "<>", title: "MERN", sub: "+ Next + TS", bg: "var(--cyan)" },
+            { icon: "//", title: "RAG & Agents", sub: "Python · LLMs", bg: "var(--orange)" },
+            { icon: "{}", title: "Docker CI/CD", sub: "AWS · ship fast", bg: "var(--green)" },
+            { icon: "()", title: "3.60 GPA", sub: "UCP · SE", bg: "var(--yellow)" },
+            { icon: "<>", title: "Full-Stack", sub: "MERN + Next + TS", bg: "var(--cyan)" },
           ].map((c) => (
             <div
               key={c.title}

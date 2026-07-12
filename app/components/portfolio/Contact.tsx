@@ -26,7 +26,7 @@ export function Contact() {
       </div>
 
       <span className="font-mono text-[11px] uppercase tracking-[0.4em] px-4 py-1.5 rounded-full border-2 border-foreground bg-card text-foreground mb-6">
-        05 — let's talk
+        06 — let's talk
       </span>
 
       <h2 className="font-display font-extrabold leading-[0.92] tracking-tight text-[clamp(56px,11vw,160px)] mb-6">
@@ -35,7 +35,7 @@ export function Contact() {
       </h2>
 
       <p className="text-lg text-muted-foreground mb-12 max-w-xl">
-        Full-Stack MERN Developer · open to{" "}
+        Software Engineer & AI Engineer · open to{" "}
         <span className="px-1.5 rounded bg-[var(--green)] text-foreground font-semibold">remote</span> &{" "}
         <span className="px-1.5 rounded bg-[var(--yellow)] text-foreground font-semibold">Lahore</span> roles
       </p>
@@ -63,6 +63,14 @@ export function Contact() {
           style={{ boxShadow: "6px 6px 0 0 var(--color-foreground)" }}
         >
           ⌨ github
+        </a>
+        <a
+          href="https://www.linkedin.com/in/muhammad-asim-b011852b5"
+          target="_blank" rel="noreferrer"
+          className="font-mono text-[11px] uppercase tracking-[0.18em] font-bold px-7 py-4 rounded-full bg-[var(--cyan)] text-foreground border-2 border-foreground card-sticker-hover"
+          style={{ boxShadow: "6px 6px 0 0 var(--color-foreground)" }}
+        >
+          in linkedin
         </a>
       </div>
 

@@ -5,12 +5,12 @@ import { useEffect, useState } from "react";
 const NODES = [
   { id: "react", label: "React", angle: 30, r: 130, color: "var(--cyan)" },
   { id: "node", label: "Node", angle: 120, r: 130, color: "var(--green)" },
-  { id: "mongo", label: "Mongo", angle: 210, r: 130, color: "var(--green)" },
+  { id: "rag", label: "RAG", angle: 210, r: 130, color: "var(--pink)" },
   { id: "ts", label: "TS", angle: 300, r: 130, color: "var(--blue)" },
   { id: "docker", label: "Docker", angle: 60, r: 210, color: "var(--blue)" },
-  { id: "socket", label: "Socket", angle: 150, r: 210, color: "var(--pink)" },
+  { id: "python", label: "Python", angle: 150, r: 210, color: "var(--yellow)" },
   { id: "next", label: "Next", angle: 240, r: 210, color: "var(--purple)" },
-  { id: "jwt", label: "JWT", angle: 330, r: 210, color: "var(--orange)" },
+  { id: "aws", label: "AWS", angle: 330, r: 210, color: "var(--orange)" },
 ];
 
 export function Skills() {
@@ -29,17 +29,18 @@ export function Skills() {
   }, []);
 
   const cards = [
+    { key: "ai", icon: "AI", title: "AI Engineering", color: "var(--pink)", tags: ["RAG", "AI Agents", "LLM APIs", "Vector Search", "Python", "Chatbots"] },
     { key: "fe", icon: "FE", title: "Frontend", color: "var(--cyan)", tags: ["React", "Next.js", "TypeScript", "Redux", "Tailwind", "Canvas"] },
     { key: "be", icon: "BE", title: "Backend", color: "var(--green)", tags: ["Node.js", "Express", "Socket.io", "REST", "JWT", "MVC"] },
     { key: "db", icon: "DB", title: "Database", color: "var(--yellow)", tags: ["MongoDB", "MySQL", "Mongoose", "Aggregation"] },
-    { key: "dv", icon: "DX", title: "DevOps & QA", color: "var(--orange)", tags: ["Docker", "CI/CD", "Render", "Jest", "Selenium"] },
-    { key: "se", icon: "SE", title: "BS Software Eng.", color: "var(--pink)", tags: ["Data Structures", "Algorithms", "Architecture", "SDLC", "Agile", "UML"] },
+    { key: "dv", icon: "DX", title: "DevOps & Cloud", color: "var(--orange)", tags: ["Docker", "CI/CD", "AWS", "GitHub Actions", "Jest", "Selenium"] },
+    { key: "se", icon: "SE", title: "BS Software Eng.", color: "var(--blue)", tags: ["Data Structures", "Algorithms", "System Design", "SDLC", "Agile", "UML"] },
   ];
 
   return (
     <section id="skills" className="relative px-6 sm:px-10 py-28 max-w-7xl mx-auto">
       <div className="inline-block font-mono text-[10px] uppercase tracking-[0.35em] text-foreground px-3 py-1.5 rounded-full bg-[var(--cyan)] border-2 border-foreground mb-6">
-        03 — stack
+        04 — stack
       </div>
       <h2 className="font-display font-extrabold text-[clamp(44px,8vw,110px)] leading-[0.92] tracking-tight mb-16">
         the <span className="text-grad-sun">arsenal.</span>
@@ -58,7 +59,7 @@ export function Skills() {
             }}
           >
             <span className="text-[10px] font-mono opacity-60">// stack</span>
-            <span className="text-2xl leading-none">MERN</span>
+            <span className="text-2xl leading-none">AI+FS</span>
             <span className="text-[10px] font-mono opacity-60">v.2026</span>
           </div>
           {mounted && NODES.map((n) => {
@@ -85,7 +86,7 @@ export function Skills() {
       </div>
 
       {/* cards */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {cards.map((c) => (
           <div
             key={c.key}
@@ -98,7 +99,7 @@ export function Skills() {
             >
               {c.icon}
             </div>
-            <h3 className="font-display font-extrabold text-xl mb-3 text-foreground">{c.title}</h3>
+            <h3 className="font-display font-extrabold text-xl mb-3 text-foreground leading-tight break-words">{c.title}</h3>
             <div className="flex flex-wrap gap-1.5">
               {c.tags.map((t) => (
                 <span key={t} className="font-mono text-[10px] px-2 py-1 rounded-md bg-muted text-muted-foreground border border-border">

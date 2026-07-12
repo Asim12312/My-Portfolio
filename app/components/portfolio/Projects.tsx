@@ -1,6 +1,18 @@
 const PROJECTS = [
   {
     n: "01",
+    title: "Mohasib",
+    desc: "FBR-compliant digital invoicing SaaS for Pakistani businesses — live in production. Real-time invoice transmission to PRAL with instant 22-digit invoice numbers & QR codes, bulk Excel/CSV import with validation, sandbox testing mode, and a multi-client portal for tax consultants.",
+    pills: ["Next.js", "Node.js", "MongoDB", "PRAL / FBR API", "SaaS", "REST"],
+    metric: "Live",
+    metricLabel: "paying-user saas",
+    color: "var(--green)",
+    emoji: "🧾",
+    githubUrl: "https://github.com/Asim12312",
+    liveUrl: "https://mohasib.online"
+  },
+  {
+    n: "02",
     title: "ChefOS",
     desc: "Real-time restaurant operations platform. Role-based access for admin, manager & staff. Live order sync across kitchen, billing & inventory via Socket.io. Redux for complex multi-user workflows.",
     pills: ["React", "Node", "Socket.io", "MongoDB", "JWT", "Docker"],
@@ -12,7 +24,7 @@ const PROJECTS = [
     liveUrl: "https://chefos.pro"
   },
   {
-    n: "02",
+    n: "03",
     title: "StudentSphere",
     desc: "Full-stack university ecosystem. Features clubs with real-time chats, academic forum, peer-to-peer Stripe-powered marketplace, and robust admin oversight.",
     pills: ["React", "Express", "Node", "MongoDB", "Socket.io", "Stripe"],
@@ -23,7 +35,7 @@ const PROJECTS = [
     githubUrl: "https://github.com/Asim12312/student-sphere-app.git"
   },
   {
-    n: "03",
+    n: "04",
     title: "UCP DevOps Project",
     desc: "A modern, high-performance web portal built with a cutting-edge DevOps mindset. Complete software development lifecycle with fully automated CI/CD pipeline.",
     pills: ["HTML5", "CSS3", "JavaScript", "Parcel", "GitHub Actions", "Docker", "Nginx"],
@@ -34,24 +46,26 @@ const PROJECTS = [
     githubUrl: "https://github.com/Asim12312/ucp-devops-project.git"
   },
   {
-    n: "04",
+    n: "05",
     title: "Movie Discovery Engine",
     desc: "ML-powered recommendation engine using Cosine Similarity. Dynamic React UI with lazy loading, animations & search filtering. Python/Flask backend with caching.",
     pills: ["React", "Python", "Flask", "ML / Cosine", "REST"],
     metric: "<200ms",
     metricLabel: "response",
     color: "var(--cyan)",
-    emoji: "</>"
+    emoji: "</>",
+    githubUrl: "https://github.com/Asim12312"
   },
   {
-    n: "05",
+    n: "06",
     title: "Automated UI Verifier",
     desc: "Self-contained Selenium testing suite for 50+ edge cases. Binary pass/fail rubrics for regression testing — cut QA time by 40% on CI runs.",
     pills: ["Python", "Selenium", "JavaScript", "CI/CD"],
     metric: "40%",
     metricLabel: "qa time saved",
     color: "var(--green)",
-    emoji: "[ ]"
+    emoji: "[ ]",
+    githubUrl: "https://github.com/Asim12312"
   },
 ];
 
@@ -59,7 +73,7 @@ export function Projects() {
   return (
     <section id="projects" className="relative px-6 sm:px-10 py-28 max-w-7xl mx-auto">
       <div className="inline-block font-mono text-[10px] uppercase tracking-[0.35em] text-foreground px-3 py-1.5 rounded-full bg-[var(--orange)] border-2 border-foreground mb-6">
-        04 — work
+        05 — work
       </div>
       <h2 className="font-display font-extrabold text-[clamp(44px,8vw,110px)] leading-[0.92] tracking-tight mb-12">
         selected <span className="text-grad-mint">projects.</span>

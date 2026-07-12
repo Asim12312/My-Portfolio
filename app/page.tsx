@@ -1,6 +1,8 @@
 import { Blobs, Nav } from "@/app/components/portfolio/Chrome";
 import { Hero } from "@/app/components/portfolio/Hero";
+import { Stats } from "@/app/components/portfolio/Stats";
 import { About } from "@/app/components/portfolio/About";
+import { Experience } from "@/app/components/portfolio/Experience";
 import { Skills } from "@/app/components/portfolio/Skills";
 import { Projects } from "@/app/components/portfolio/Projects";
 import { Ticker } from "@/app/components/portfolio/Ticker";
@@ -14,14 +16,16 @@ export default function Portfolio() {
         <Nav />
         <main>
           <Hero />
+          <Stats />
           <About />
+          <Experience />
           <Skills />
           <Projects />
           <Ticker />
           <Contact />
         </main>
         <footer className="relative z-10 px-6 sm:px-10 py-6 flex flex-wrap justify-between items-center gap-2 border-t border-border font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
-          <span>© 2026 Muhammad Asim · MERN Dev</span>
+          <span>© 2026 Muhammad Asim · Software Engineer · AI Engineer</span>
           <span>built with passion · Lahore · open to remote 🌍</span>
         </footer>
       </div>

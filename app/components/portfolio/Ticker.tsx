@@ -1,15 +1,15 @@
 const ROW_1 = [
-  ["React.js", "var(--cyan)"], ["Node.js", "var(--green)"], ["MongoDB", "var(--orange)"],
-  ["Socket.io", "var(--yellow)"], ["Docker", "var(--cyan)"], ["TypeScript", "var(--green)"],
-  ["JWT", "var(--orange)"], ["CI/CD", "var(--yellow)"], ["REST APIs", "var(--cyan)"],
-  ["Redux", "var(--green)"], ["Next.js", "var(--orange)"], ["Express", "var(--yellow)"],
+  ["RAG", "var(--pink)"], ["AI Agents", "var(--cyan)"], ["Python", "var(--yellow)"],
+  ["React.js", "var(--cyan)"], ["Next.js", "var(--orange)"], ["Node.js", "var(--green)"],
+  ["MongoDB", "var(--orange)"], ["AWS", "var(--yellow)"], ["Docker", "var(--cyan)"],
+  ["TypeScript", "var(--green)"], ["CI/CD", "var(--yellow)"], ["REST APIs", "var(--cyan)"],
 ] as const;
 
 const ROW_2 = [
-  ["Full-Stack Dev", "var(--orange)"], ["BS Software Eng · 3.54 GPA", "var(--cyan)"],
-  ["Open to Remote", "var(--green)"], ["Lahore · Pakistan", "var(--orange)"],
-  ["MERN Stack", "var(--yellow)"], ["Clean Architecture", "var(--cyan)"],
-  ["Problem Solver", "var(--green)"], ["Available Now", "var(--orange)"],
+  ["SWE Intern @ VentureDive", "var(--green)"], ["AI Engineer", "var(--pink)"],
+  ["BS Software Eng · 3.60 GPA", "var(--cyan)"], ["3+ yrs Freelance · Upwork", "var(--yellow)"],
+  ["System Design", "var(--orange)"], ["Open to Remote", "var(--green)"],
+  ["Lahore · Pakistan", "var(--orange)"], ["Mohasib · Live SaaS", "var(--cyan)"],
 ] as const;
 
 function Row({ items, reverse = false }: { items: ReadonlyArray<readonly [string, string]>; reverse?: boolean }) {

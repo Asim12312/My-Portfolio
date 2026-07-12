@@ -156,6 +156,17 @@
   ::selection { background: #fecaca; color: #7f1d1d; }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 @layer utilities {
   .text-grad-juicy {
     background-image: linear-gradient(90deg, #f472b6, #fb923c, #facc15, #4ade80, #22d3ee, #818cf8);

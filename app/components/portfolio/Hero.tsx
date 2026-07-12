@@ -3,21 +3,21 @@
 import { useEffect, useRef, useState } from "react";
 
 const CODE_LINES: Array<[string, string]> = [
-  ["01", `<span class="cm">// ChefOS — real-time restaurant ops</span>`],
-  ["02", `<span class="kw">import</span> <span class="cl">React</span>, { useState, useEffect } <span class="kw">from</span> <span class="str">'react'</span>`],
-  ["03", `<span class="kw">import</span> { <span class="fn">io</span> } <span class="kw">from</span> <span class="str">'socket.io-client'</span>`],
+  ["01", `<span class="cm">// RAG agent — retrieve · reason · respond</span>`],
+  ["02", `<span class="kw">import</span> { <span class="cl">VectorStore</span>, <span class="fn">embed</span> } <span class="kw">from</span> <span class="str">'@/lib/rag'</span>`],
+  ["03", `<span class="kw">import</span> { <span class="cl">llm</span> } <span class="kw">from</span> <span class="str">'@/lib/ai'</span>`],
   ["04", ``],
-  ["05", `<span class="kw">const</span> <span class="fn">Dashboard</span> = ({ <span class="cl">user</span> }) <span class="op">=&gt;</span> {`],
-  ["06", `&nbsp;&nbsp;<span class="kw">const</span> [<span class="wh">orders</span>, setOrders] = <span class="fn">useState</span>([])`],
-  ["07", `&nbsp;&nbsp;<span class="kw">const</span> <span class="wh">socket</span> = <span class="fn">io</span>(<span class="str">API_URL</span>)`],
+  ["05", `<span class="kw">const</span> <span class="fn">answer</span> = <span class="kw">async</span> (<span class="cl">query</span>) <span class="op">=&gt;</span> {`],
+  ["06", `&nbsp;&nbsp;<span class="kw">const</span> <span class="wh">vector</span> = <span class="kw">await</span> <span class="fn">embed</span>(query)`],
+  ["07", `&nbsp;&nbsp;<span class="kw">const</span> <span class="wh">docs</span> = <span class="kw">await</span> store.<span class="fn">search</span>(vector, { topK: <span class="num">5</span> })`],
   ["08", ``],
-  ["09", `&nbsp;&nbsp;<span class="fn">useEffect</span>(() <span class="op">=&gt;</span> {`],
-  ["10", `&nbsp;&nbsp;&nbsp;&nbsp;socket.<span class="fn">on</span>(<span class="str">'order:new'</span>, (data) <span class="op">=&gt;</span> {`],
-  ["11", `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">setOrders</span>(p <span class="op">=&gt;</span> [...p, data])`],
-  ["12", `&nbsp;&nbsp;&nbsp;&nbsp;})`],
-  ["13", `&nbsp;&nbsp;}, [])`],
-  ["14", ``],
-  ["15", `&nbsp;&nbsp;<span class="kw">return</span> <span class="op">&lt;</span><span class="cl">OrderBoard</span> <span class="wh">orders</span><span class="op">={</span>orders<span class="op">}</span> <span class="op">/&gt;</span>`],
+  ["09", `&nbsp;&nbsp;<span class="kw">const</span> <span class="wh">context</span> = docs`],
+  ["10", `&nbsp;&nbsp;&nbsp;&nbsp;.<span class="fn">map</span>((d) <span class="op">=&gt;</span> d.text)`],
+  ["11", `&nbsp;&nbsp;&nbsp;&nbsp;.<span class="fn">join</span>(<span class="str">'\\n---\\n'</span>)`],
+  ["12", ``],
+  ["13", `&nbsp;&nbsp;<span class="kw">return</span> llm.<span class="fn">complete</span>({`],
+  ["14", `&nbsp;&nbsp;&nbsp;&nbsp;<span class="wh">system</span>: <span class="str">GROUNDED_PROMPT</span>, <span class="wh">context</span>, <span class="wh">query</span>,`],
+  ["15", `&nbsp;&nbsp;})`],
   ["16", `}<span class="cursor-blink"></span>`],
 ];
 
@@ -68,7 +68,7 @@ export function Hero() {
     <section id="top" className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-32 pb-20 text-center">
       {/* sticker tags */}
       <div className="absolute top-28 left-[6%] hidden md:block animate-float-y" style={{ animationDelay: "0s" }}>
-        <Sticker color="green" rotate={-6}>● available for hire</Sticker>
+        <Sticker color="green" rotate={-6}>● swe intern @ venturedive</Sticker>
       </div>
       <div className="absolute top-40 right-[6%] hidden md:block animate-float-y" style={{ animationDelay: "-1.4s" }}>
         <Sticker color="orange" rotate={5}>remote / lahore</Sticker>
@@ -76,7 +76,7 @@ export function Hero() {
 
       <span className="font-mono text-[11px] uppercase tracking-[0.4em] text-foreground/60 mb-5 px-4 py-1.5 rounded-full border-2 border-foreground bg-card">
         <span className="inline-block h-2 w-2 rounded-full bg-[var(--green)] mr-2 animate-pulse" />
-        Full-Stack MERN Dev · Lahore + Remote
+        Software Engineer · AI Engineer · Lahore + Remote
       </span>
 
       <h1 className="w-full font-display font-extrabold leading-[0.92] tracking-tight text-[clamp(30px,7.5vw,80px)] mb-6 mx-auto px-1">
@@ -85,9 +85,10 @@ export function Hero() {
       </h1>
 
       <p className="max-w-xl text-base sm:text-lg text-muted-foreground mb-10">
-        I build <em className="not-italic font-semibold text-foreground">real-time systems</em>,{" "}
-        <em className="not-italic font-semibold text-foreground">ML-powered apps</em>, and ship code
-        that's <span className="px-1.5 py-0.5 rounded-md bg-[var(--green)] text-foreground font-semibold">clean and fast</span>.
+        I build <em className="not-italic font-semibold text-foreground">AI-powered systems</em>,{" "}
+        <em className="not-italic font-semibold text-foreground">RAG pipelines & agents</em>, and{" "}
+        <em className="not-italic font-semibold text-foreground">full-stack products</em> that are{" "}
+        <span className="px-1.5 py-0.5 rounded-md bg-[var(--green)] text-foreground font-semibold">live in production</span>.
       </p>
 
       <div className="flex flex-wrap items-center justify-center gap-3 mb-14">
@@ -115,10 +116,10 @@ export function Hero() {
 
       {/* Laptop */}
       <div className="relative w-full max-w-[720px] mx-auto">
-        <FloatingBadge className="-top-4 -left-6 sm:-left-16" color="green" rotate={-6}>node.js</FloatingBadge>
-        <FloatingBadge className="top-1/3 -right-4 sm:-right-20" color="cyan" rotate={5}>react</FloatingBadge>
-        <FloatingBadge className="-bottom-2 -left-2 sm:-left-14" color="orange" rotate={-4}>socket.io</FloatingBadge>
-        <FloatingBadge className="-bottom-6 right-2 sm:right-0" color="yellow" rotate={7}>mongodb</FloatingBadge>
+        <FloatingBadge className="-top-4 -left-6 sm:-left-16" color="green" rotate={-6}>rag · agents</FloatingBadge>
+        <FloatingBadge className="top-1/3 -right-4 sm:-right-20" color="cyan" rotate={5}>next.js</FloatingBadge>
+        <FloatingBadge className="-bottom-2 -left-2 sm:-left-14" color="orange" rotate={-4}>python</FloatingBadge>
+        <FloatingBadge className="-bottom-6 right-2 sm:right-0" color="yellow" rotate={7}>aws · docker</FloatingBadge>
 
         <div className="relative">
           <div
