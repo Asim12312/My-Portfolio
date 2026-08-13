@@ -1,211 +1,170 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { PROFILE } from "@/lib/content";
+import { usePrefersReducedMotion } from "./hooks";
+import { ArrowIcon, DownloadIcon, GithubIcon, LinkedinIcon, MailIcon } from "./icons";
 
-const CODE_LINES: Array<[string, string]> = [
-  ["01", `<span class="cm">// RAG agent — retrieve · reason · respond</span>`],
-  ["02", `<span class="kw">import</span> { <span class="cl">VectorStore</span>, <span class="fn">embed</span> } <span class="kw">from</span> <span class="str">'@/lib/rag'</span>`],
-  ["03", `<span class="kw">import</span> { <span class="cl">llm</span> } <span class="kw">from</span> <span class="str">'@/lib/ai'</span>`],
-  ["04", ``],
-  ["05", `<span class="kw">const</span> <span class="fn">answer</span> = <span class="kw">async</span> (<span class="cl">query</span>) <span class="op">=&gt;</span> {`],
-  ["06", `&nbsp;&nbsp;<span class="kw">const</span> <span class="wh">vector</span> = <span class="kw">await</span> <span class="fn">embed</span>(query)`],
-  ["07", `&nbsp;&nbsp;<span class="kw">const</span> <span class="wh">docs</span> = <span class="kw">await</span> store.<span class="fn">search</span>(vector, { topK: <span class="num">5</span> })`],
-  ["08", ``],
-  ["09", `&nbsp;&nbsp;<span class="kw">const</span> <span class="wh">context</span> = docs`],
-  ["10", `&nbsp;&nbsp;&nbsp;&nbsp;.<span class="fn">map</span>((d) <span class="op">=&gt;</span> d.text)`],
-  ["11", `&nbsp;&nbsp;&nbsp;&nbsp;.<span class="fn">join</span>(<span class="str">'\\n---\\n'</span>)`],
-  ["12", ``],
-  ["13", `&nbsp;&nbsp;<span class="kw">return</span> llm.<span class="fn">complete</span>({`],
-  ["14", `&nbsp;&nbsp;&nbsp;&nbsp;<span class="wh">system</span>: <span class="str">GROUNDED_PROMPT</span>, <span class="wh">context</span>, <span class="wh">query</span>,`],
-  ["15", `&nbsp;&nbsp;})`],
-  ["16", `}<span class="cursor-blink"></span>`],
+/* Tokenised rather than raw HTML — same look, no dangerouslySetInnerHTML. */
+type Tok = [cls: string, text: string];
+const CODE_LINES: Tok[][] = [
+  [["cm", "// grounded answer — retrieve, then reason"]],
+  [["kw", "const"], ["", " "], ["fn", "answer"], ["", " = "], ["kw", "async"], ["", " ("], ["cl", "query"], ["", ") "], ["op", "=>"], ["", " {"]],
+  [["", "  "], ["kw", "const"], ["", " "], ["wh", "vector"], ["", " = "], ["kw", "await"], ["", " "], ["fn", "embed"], ["", "(query)"]],
+  [["", "  "], ["kw", "const"], ["", " "], ["wh", "docs"], ["", "   = "], ["kw", "await"], ["", " store."], ["fn", "search"], ["", "(vector, {"]],
+  [["", "    topK: "], ["num", "5"], ["", ", minScore: "], ["num", "0.78"], ["", ","]],
+  [["", "  })"]],
+  [],
+  [["", "  "], ["kw", "if"], ["", " (!docs.length) "], ["kw", "return"], ["", " "], ["str", "NO_GROUNDS"]],
+  [],
+  [["", "  "], ["kw", "return"], ["", " llm."], ["fn", "complete"], ["", "({"]],
+  [["", "    "], ["wh", "system"], ["", ": "], ["str", "CITE_OR_ABSTAIN"], ["", ","]],
+  [["", "    "], ["wh", "context"], ["", ": docs."], ["fn", "map"], ["", "(toChunk),"]],
+  [["", "    "], ["wh", "query"], ["", ","]],
+  [["", "  })"]],
+  [["", "}"]],
 ];
 
 export function Hero() {
-  const [lines, setLines] = useState<Array<[string, string]>>([]);
-  const ref = useRef<HTMLDivElement>(null);
+  const reducedMotion = usePrefersReducedMotion();
+  const [typedCount, setTypedCount] = useState(0);
+  const scroller = useRef<HTMLDivElement>(null);
+
+  /* With reduced motion the sample renders complete instead of typing itself. */
+  const count = reducedMotion ? CODE_LINES.length : typedCount;
 
   useEffect(() => {
+    if (reducedMotion) return;
+
     let i = 0;
-    let isActive = true;
-    let t: ReturnType<typeof setTimeout>;
-    
+    let timer: ReturnType<typeof setTimeout>;
+    let alive = true;
+
     const tick = () => {
-      if (!isActive) return;
+      if (!alive) return;
       if (i >= CODE_LINES.length) {
-        // restart for endless loop after pause
-        t = setTimeout(() => {
-          if (!isActive) return;
+        timer = setTimeout(() => {
+          if (!alive) return;
           i = 0;
-          setLines([]);
-          t = setTimeout(tick, 600);
-        }, 4000);
+          setTypedCount(0);
+          timer = setTimeout(tick, 700);
+        }, 5000);
         return;
       }
-      
-      const nextLine = CODE_LINES[i];
-      if (nextLine) {
-        setLines((prev) => [...prev, nextLine]);
-      }
-      i++;
-      
-      setTimeout(() => {
-        if (!isActive) return;
-        if (ref.current) ref.current.scrollTop = ref.current.scrollHeight;
-      }, 20);
-      
-      t = setTimeout(tick, 220);
+      i += 1;
+      setTypedCount(i);
+      if (scroller.current) scroller.current.scrollTop = scroller.current.scrollHeight;
+      timer = setTimeout(tick, 190);
     };
-    
-    t = setTimeout(tick, 900);
+
+    timer = setTimeout(tick, 800);
     return () => {
-      isActive = false;
-      clearTimeout(t);
+      alive = false;
+      clearTimeout(timer);
     };
-  }, []);
+  }, [reducedMotion]);
 
   return (
-    <section id="top" className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-32 pb-20 text-center">
-      {/* sticker tags */}
-      <div className="absolute top-28 left-[6%] hidden md:block animate-float-y" style={{ animationDelay: "0s" }}>
-        <Sticker color="green" rotate={-6}>● swe intern @ venturedive</Sticker>
-      </div>
-      <div className="absolute top-40 right-[6%] hidden md:block animate-float-y" style={{ animationDelay: "-1.4s" }}>
-        <Sticker color="orange" rotate={5}>remote / lahore</Sticker>
-      </div>
+    <section id="top" className="relative px-6 sm:px-10 pt-36 pb-20 max-w-6xl mx-auto">
+      <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-14 lg:gap-16 items-center">
+        <div className="min-w-0">
+          {/* Availability first — it's the one fact that decides whether a
+              recruiter keeps reading. */}
+          <p className="inline-flex items-center gap-2 label mb-7 px-3 py-1.5 rounded-full hairline bg-card">
+            <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-brand" />
+            {PROFILE.availability.label}
+          </p>
 
-      <span className="font-mono text-[11px] uppercase tracking-[0.4em] text-foreground/60 mb-5 px-4 py-1.5 rounded-full border-2 border-foreground bg-card">
-        <span className="inline-block h-2 w-2 rounded-full bg-[var(--green)] mr-2 animate-pulse" />
-        Software Engineer · AI Engineer · Lahore + Remote
-      </span>
+          <h1 className="font-display font-extrabold text-[clamp(2.6rem,6.4vw,4.6rem)] leading-[1.02] mb-6">
+            Muhammad Asim
+          </h1>
 
-      <h1 className="w-full font-display font-extrabold leading-[0.92] tracking-tight text-[clamp(30px,7.5vw,80px)] mb-6 mx-auto px-1">
-        <span className="block break-keep">Muhammad</span>
-        <span className="block text-grad-juicy animate-grad-pan break-keep">Asim.</span>
-      </h1>
+          <p className="lead mb-7">
+            Software Engineer at{" "}
+            <a href="https://venturedive.com" target="_blank" rel="noreferrer" className="link-underline font-medium text-foreground">
+              VentureDive
+            </a>
+            , working on retrieval pipelines and AI agents. Before that I spent a year and a half
+            building client software under an experienced developer&apos;s review — which is where I
+            learned that shipping is the easy half.
+          </p>
 
-      <p className="max-w-xl text-base sm:text-lg text-muted-foreground mb-10">
-        I build <em className="not-italic font-semibold text-foreground">AI-powered systems</em>,{" "}
-        <em className="not-italic font-semibold text-foreground">RAG pipelines & agents</em>, and{" "}
-        <em className="not-italic font-semibold text-foreground">full-stack products</em> that are{" "}
-        <span className="px-1.5 py-0.5 rounded-md bg-[var(--green)] text-foreground font-semibold">live in production</span>.
-      </p>
+          <p className="prose-block mb-9">
+            Four projects are written up here in full: a statutory e-invoicing platform, a
+            restaurant operating system, an auction agent that bids within a ceiling it is given,
+            and a campus marketplace. Each write-up covers the constraint, the architecture and
+            the trade-offs I took deliberately.
+          </p>
 
-      <div className="flex flex-wrap items-center justify-center gap-3 mb-14">
-        <a
-          href="#projects"
-          className="font-mono text-[11px] uppercase tracking-[0.18em] font-bold px-6 py-3.5 rounded-full bg-foreground text-background border-2 border-foreground card-sticker-hover"
-        >
-          see the work →
-        </a>
-        <a
-          href="#contact"
-          className="font-mono text-[11px] uppercase tracking-[0.18em] font-bold px-6 py-3.5 rounded-full bg-[var(--green)] text-foreground border-2 border-foreground card-sticker-hover"
-        >
-          hire me
-        </a>
-        <a
-          href="/assets/resume.pdf"
-          download="MuhammadAsim_Resume.pdf"
-          className="font-mono text-[11px] uppercase tracking-[0.18em] font-bold px-6 py-3.5 rounded-full bg-[var(--pink)] text-foreground border-2 border-foreground card-sticker-hover flex items-center justify-center gap-2"
-        >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-          resume
-        </a>
-      </div>
-
-      {/* Laptop */}
-      <div className="relative w-full max-w-[720px] mx-auto">
-        <FloatingBadge className="-top-4 -left-6 sm:-left-16" color="green" rotate={-6}>rag · agents</FloatingBadge>
-        <FloatingBadge className="top-1/3 -right-4 sm:-right-20" color="cyan" rotate={5}>next.js</FloatingBadge>
-        <FloatingBadge className="-bottom-2 -left-2 sm:-left-14" color="orange" rotate={-4}>python</FloatingBadge>
-        <FloatingBadge className="-bottom-6 right-2 sm:right-0" color="yellow" rotate={7}>aws · docker</FloatingBadge>
-
-        <div className="relative">
-          <div
-            className="relative w-full rounded-t-2xl overflow-hidden border-2 border-foreground"
-            style={{
-              aspectRatio: "16/10",
-              background: "linear-gradient(135deg, #1a1a2e, #16213e, #0f3460)",
-              boxShadow: "0 30px 80px -20px rgba(0, 0, 0, 0.45), 0 0 60px rgba(34, 211, 238, 0.18)",
-            }}
-          >
-            {/* traffic dots */}
-            <div className="absolute top-3 left-4 flex gap-1.5 z-10">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-            </div>
-            <div className="absolute inset-2 mt-6 rounded-lg bg-[#0a0a14] overflow-hidden">
-              <div
-                ref={ref}
-                className="h-full w-full overflow-hidden p-4 font-mono text-[clamp(9px,1.3vw,12.5px)] leading-[1.65] text-white/85"
-              >
-                {lines.map((line, idx) => {
-                  if (!Array.isArray(line)) return null;
-                  const [ln, content] = line;
-                  return (
-                    <div key={idx} className="flex">
-                      <span className="text-white/25 mr-3 w-6 text-right shrink-0">{ln}</span>
-                      <span dangerouslySetInnerHTML={{ __html: content }} />
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+          <div className="flex flex-wrap items-center gap-2.5 mb-8">
+            <a href="#work" className="btn btn-primary">
+              Read the case studies
+              <ArrowIcon />
+            </a>
+            <a href={PROFILE.resume} target="_blank" rel="noreferrer" className="btn btn-ghost">
+              <DownloadIcon />
+              Résumé
+            </a>
           </div>
-          {/* base */}
+
+          <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <li>
+              <a href={`mailto:${PROFILE.email}`} className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-brand transition-colors">
+                <MailIcon /> {PROFILE.email}
+              </a>
+            </li>
+            <li>
+              <a href={PROFILE.links.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-brand transition-colors">
+                <GithubIcon /> GitHub
+              </a>
+            </li>
+            <li>
+              <a href={PROFILE.links.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-brand transition-colors">
+                <LinkedinIcon /> LinkedIn
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {/* Quiet terminal panel. The previous version wrapped this in a fake
+            laptop with floating sticker badges — decoration that read junior. */}
+        <div className="surface overflow-hidden min-w-0">
+          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-border bg-muted/60">
+            <span aria-hidden className="flex gap-1.5">
+              <span className="h-2 w-2 rounded-full bg-foreground/20" />
+              <span className="h-2 w-2 rounded-full bg-foreground/20" />
+              <span className="h-2 w-2 rounded-full bg-foreground/20" />
+            </span>
+            <span className="font-mono text-[11px] text-muted-foreground ml-1 truncate">lib/rag/answer.ts</span>
+          </div>
           <div
-            className="mx-auto h-4 rounded-b-xl border-2 border-t-0 border-foreground"
-            style={{
-              width: "104%",
-              marginLeft: "-2%",
-              background: "linear-gradient(180deg, #1e1e2e, #141424)",
-            }}
+            ref={scroller}
+            aria-hidden
+            /* overflow-x auto rather than hidden: the longest line is ~46
+               characters, which clips on a 360px phone. */
+            className="code-sample h-[300px] sm:h-[340px] overflow-y-hidden overflow-x-auto px-4 py-4 font-mono text-[10.5px] sm:text-[12.5px] leading-[1.8] bg-[#0d1117] text-[#c9d1d9]"
           >
-            <div className="mx-auto mt-1 h-1 w-16 rounded-full bg-white/15" />
+            {CODE_LINES.slice(0, count).map((toks, idx) => (
+              <div key={idx} className="flex">
+                <span className="text-[#4d5765] mr-4 w-4 text-right shrink-0 select-none">{idx + 1}</span>
+                <span className="whitespace-pre min-w-0">
+                  {toks.map(([cls, text], j) => (
+                    <span key={j} className={cls}>{text}</span>
+                  ))}
+                  {idx === count - 1 && <span className="cursor-blink" />}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      <style>{`
-        .kw{color:#FF79C6}.fn{color:#50FA7B}.str{color:#F1FA8C}.cl{color:#8BE9FD}
-        .cm{color:#6272A4;font-style:italic}.wh{color:#fff}.op{color:#FF79C6}.num{color:#BD93F9}
-        .cursor-blink{display:inline-block;width:8px;height:1em;background:#8BE9FD;vertical-align:text-bottom;margin-left:2px;animation:blink 1s steps(1) infinite}
-      `}</style>
+      <p className="sr-only">
+        Illustrative code sample: a retrieval-augmented generation helper that embeds a query,
+        searches a vector store for the five closest documents above a similarity threshold,
+        abstains when nothing relevant is found, and otherwise asks a language model to answer
+        using only those retrieved chunks.
+      </p>
     </section>
-  );
-}
-
-function Sticker({
-  children, color, rotate = 0,
-}: { children: React.ReactNode; color: "pink" | "yellow" | "cyan" | "green" | "orange"; rotate?: number }) {
-  const bg: Record<string, string> = {
-    pink: "var(--pink)", yellow: "var(--yellow)", cyan: "var(--cyan)",
-    green: "var(--green)", orange: "var(--orange)",
-  };
-  return (
-    <span
-      className="inline-block px-3 py-1.5 rounded-full font-mono text-[11px] font-bold border-2 border-foreground text-foreground"
-      style={{ background: bg[color], transform: `rotate(${rotate}deg)`, boxShadow: "3px 3px 0 0 var(--color-foreground)" }}
-    >
-      {children}
-    </span>
-  );
-}
-
-function FloatingBadge({
-  children, className = "", color, rotate = 0,
-}: { children: React.ReactNode; className?: string; color: "pink" | "yellow" | "cyan" | "green" | "orange"; rotate?: number }) {
-  const bg: Record<string, string> = {
-    pink: "var(--pink)", yellow: "var(--yellow)", cyan: "var(--cyan)", green: "var(--green)", orange: "var(--orange)",
-  };
-  return (
-    <span
-      className={`absolute z-20 px-3 py-1.5 rounded-full font-mono text-[10px] sm:text-[11px] font-bold border-2 border-foreground text-foreground animate-float-y ${className}`}
-      style={{ background: bg[color], transform: `rotate(${rotate}deg)`, boxShadow: "3px 3px 0 0 var(--color-foreground)" }}
-    >
-      {children}
-    </span>
   );
 }

@@ -1,115 +1,93 @@
-const ROLES = [
-  {
-    n: "01",
-    role: "Software Engineer Intern",
-    company: "VentureDive",
-    period: "Feb 2026 — Present",
-    location: "Lahore",
-    color: "var(--cyan)",
-    badge: "current",
-    points: [
-      "Building scalable, AI-powered digital solutions combining modern web development with intelligent systems.",
-      "Implementing RAG pipelines, CI/CD workflows, full-stack features & system design in production codebases.",
-    ],
-    pills: ["RAG", "System Design", "CI/CD", "Full-Stack", "AI Systems"],
-  },
-  {
-    n: "02",
-    role: "Software Engineer — AI & Automation",
-    company: "Upwork · Freelance",
-    period: "May 2025 — Present",
-    location: "Remote",
-    color: "var(--pink)",
-    points: [
-      "Designed AI-powered automation solutions with Python and modern AI APIs — intelligent chatbots & AI agents that automate business workflows.",
-      "Built backend services on AWS, automated repetitive processes with APIs, webhooks & workflow tools for clients worldwide.",
-    ],
-    pills: ["Python", "AI Agents", "AWS", "Automation", "Chatbots"],
-  },
-  {
-    n: "03",
-    role: "Full-Stack Software Engineer",
-    company: "Upwork · Freelance",
-    period: "Nov 2022 — Present",
-    location: "Remote",
-    color: "var(--green)",
-    points: [
-      "3+ years shipping responsive, scalable web apps with React, Next.js, Node, Express & MongoDB for international clients.",
-      "Delivered end-to-end: REST APIs, auth & authorization, third-party integrations, SEO & performance optimization — on time, every time.",
-    ],
-    pills: ["React", "Next.js", "Node.js", "MongoDB", "REST APIs"],
-  },
-];
+import { PROFILE, ROLES } from "@/lib/content";
+import { Reveal, SectionHeading } from "./Reveal";
 
 export function Experience() {
   return (
-    <section id="experience" className="relative px-6 sm:px-10 py-28 max-w-7xl mx-auto">
-      <div className="inline-block font-mono text-[10px] uppercase tracking-[0.35em] text-foreground px-3 py-1.5 rounded-full bg-[var(--pink)] border-2 border-foreground mb-6">
-        03 — experience
-      </div>
-      <h2 className="font-display font-extrabold text-[clamp(44px,8vw,110px)] leading-[0.92] tracking-tight mb-12">
-        where I've <span className="text-grad-juicy">shipped.</span>
-      </h2>
+    <section id="experience" className="relative px-6 sm:px-10 py-20 sm:py-28 max-w-6xl mx-auto">
+      <SectionHeading
+        eyebrow="02 — experience"
+        lead="Two roles, listed with what I actually owned rather than what the team did."
+      >
+        Where I&apos;ve worked.
+      </SectionHeading>
 
-      <div className="grid gap-6">
+      <ol className="border-t border-border">
         {ROLES.map((r) => (
-          <article
-            key={r.n}
-            className="group relative rounded-3xl border-2 border-foreground bg-card p-6 sm:p-9 card-sticker-hover"
-            style={{ boxShadow: "6px 6px 0 0 var(--color-foreground)" }}
-          >
-            <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
-              <div className="flex items-center gap-4">
-                <span
-                  className="h-12 w-12 rounded-xl border-2 border-foreground flex items-center justify-center font-mono font-extrabold text-sm text-foreground shrink-0"
-                  style={{ background: r.color, boxShadow: "3px 3px 0 0 var(--color-foreground)" }}
-                >
-                  {r.n}
-                </span>
-                <div>
-                  <h3 className="font-display font-extrabold text-xl sm:text-2xl text-foreground leading-tight">
-                    {r.role}
-                  </h3>
-                  <div className="font-mono text-xs text-muted-foreground mt-1">
-                    {r.company} · {r.location}
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
+          <Reveal as="li" key={r.n} className="block border-b border-border">
+            <article className="grid lg:grid-cols-[200px_1fr] gap-4 lg:gap-12 py-9">
+              {/* Timeline column — kept narrow and out of the reading measure. */}
+              <div className="lg:pt-1">
+                <p className="font-mono text-[13px] text-muted-foreground">{r.period}</p>
+                <p className="font-mono text-[12px] text-muted-foreground/80 mt-1">{r.location}</p>
                 {r.badge && (
-                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full bg-[var(--green)] border-2 border-foreground text-foreground">
-                    ● {r.badge}
-                  </span>
+                  <p className="mt-2.5 inline-flex items-center gap-1.5 tag tag-brand">
+                    <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-brand" />
+                    {r.badge}
+                  </p>
                 )}
-                <span className="font-mono text-[11px] font-bold px-3 py-1.5 rounded-full border-2 border-foreground bg-background text-foreground whitespace-nowrap">
-                  {r.period}
-                </span>
               </div>
+
+              <div className="min-w-0">
+                <h3 className="font-display font-bold text-xl sm:text-2xl text-foreground leading-snug">
+                  {r.role}
+                </h3>
+                <p className="text-[15px] text-muted-foreground mt-1.5 mb-4">
+                  {r.companyUrl ? (
+                    <a href={r.companyUrl} target="_blank" rel="noreferrer" className="link-underline text-foreground font-medium">
+                      {r.company}
+                    </a>
+                  ) : (
+                    <span className="text-foreground font-medium">{r.company}</span>
+                  )}
+                </p>
+
+                <p className="text-[15px] text-foreground font-medium measure mb-4 leading-relaxed">
+                  {r.summary}
+                </p>
+
+                <ul className="space-y-2.5 measure mb-5">
+                  {r.points.map((p, idx) => (
+                    <li key={idx} className="flex gap-3 text-[15px] text-prose leading-relaxed">
+                      <span aria-hidden className="text-muted-foreground shrink-0 select-none mt-[0.45em] h-px w-3 bg-border" />
+                      <span className="min-w-0">{p}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <ul className="flex flex-wrap gap-1.5">
+                  {r.pills.map((pill) => (
+                    <li key={pill} className="tag">{pill}</li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          </Reveal>
+        ))}
+
+        {/* Education, same rhythm — so a recruiter screening for a degree
+            never has to open the PDF. */}
+        <Reveal as="li" className="block border-b border-border">
+          <article className="grid lg:grid-cols-[200px_1fr] gap-4 lg:gap-12 py-9">
+            <div className="lg:pt-1">
+              <p className="font-mono text-[13px] text-muted-foreground">Graduated 2026</p>
+              <p className="font-mono text-[12px] text-muted-foreground/80 mt-1">{PROFILE.education.location}</p>
             </div>
-
-            <ul className="space-y-2 mb-5 max-w-3xl">
-              {r.points.map((p, i) => (
-                <li key={i} className="flex gap-2.5 text-muted-foreground leading-relaxed">
-                  <span className="font-mono font-bold shrink-0" style={{ color: r.color }}>→</span>
-                  <span>{p}</span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="flex flex-wrap gap-1.5">
-              {r.pills.map((pill) => (
-                <span
-                  key={pill}
-                  className="font-mono text-[10px] font-bold px-2.5 py-1 rounded-md border border-foreground/30 text-foreground"
-                  style={{ background: `color-mix(in oklab, ${r.color} 18%, transparent)` }}
-                >
-                  {pill}
-                </span>
-              ))}
+            <div className="min-w-0">
+              <h3 className="font-display font-bold text-xl sm:text-2xl text-foreground leading-snug">
+                {PROFILE.education.degree}
+              </h3>
+              <p className="text-[15px] text-muted-foreground mt-1.5 mb-4">
+                {PROFILE.education.school}
+              </p>
+              <p className="text-[15px] text-prose measure leading-relaxed">
+                Graduated with a <strong className="text-foreground font-semibold">{PROFILE.education.grade}</strong>.
+                Coursework in data structures, algorithms, system design, databases and software
+                engineering process.
+              </p>
             </div>
           </article>
-        ))}
-      </div>
+        </Reveal>
+      </ol>
     </section>
   );
 }

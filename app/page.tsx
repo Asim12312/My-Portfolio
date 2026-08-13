@@ -3,31 +3,29 @@ import { Hero } from "@/app/components/portfolio/Hero";
 import { Stats } from "@/app/components/portfolio/Stats";
 import { About } from "@/app/components/portfolio/About";
 import { Experience } from "@/app/components/portfolio/Experience";
-import { Skills } from "@/app/components/portfolio/Skills";
 import { Projects } from "@/app/components/portfolio/Projects";
-import { Ticker } from "@/app/components/portfolio/Ticker";
+import { Approach } from "@/app/components/portfolio/Approach";
 import { Contact } from "@/app/components/portfolio/Contact";
+import { Footer } from "@/app/components/portfolio/Footer";
 
 export default function Portfolio() {
   return (
     <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
       <Blobs />
       <div className="relative z-10">
+        <a href="#main" className="skip-link">Skip to content</a>
         <Nav />
-        <main>
+        <main id="main">
           <Hero />
           <Stats />
           <About />
           <Experience />
-          <Skills />
+          {/* Work sits right after experience — it's what recruiters came for. */}
           <Projects />
-          <Ticker />
+          <Approach />
           <Contact />
         </main>
-        <footer className="relative z-10 px-6 sm:px-10 py-6 flex flex-wrap justify-between items-center gap-2 border-t border-border font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
-          <span>© 2026 Muhammad Asim · Software Engineer · AI Engineer</span>
-          <span>built with passion · Lahore · open to remote 🌍</span>
-        </footer>
+        <Footer />
       </div>
     </div>
   );

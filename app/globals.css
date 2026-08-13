@@ -2,19 +2,24 @@
 
 @source ".";
 
-/* ─────────────────────────────────────────────
-   Gen-Z Playful Portfolio — Design System
-   Light = creamy white with juicy color blobs
-   Dark  = deep ink with neon glow
-   ───────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────
+   Design system — editorial / technical.
+
+   Typography does the work here, not decoration:
+   · Inter Tight for headings (tight, confident, reads at 90px)
+   · Inter for body — a real text face, optimised for reading
+   · JetBrains Mono for code and metadata
+   Colour is one accent plus neutrals. The rainbow palette below is
+   kept for the rare accent, not for painting every surface.
+   ───────────────────────────────────────────────────────────── */
 
 @theme {
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
-  --radius-2xl: 1.5rem;
-  --radius-3xl: 2rem;
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.75rem;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -35,131 +40,169 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-brand: var(--brand);
+  --color-prose: var(--prose);
 
-  --color-pink:   #f472b6;
-  --color-purple: #818cf8;
-  --color-blue:   #3b82f6;
-  --color-cyan:   #22d3ee;
-  --color-green:  #4ade80;
-  --color-yellow: #facc15;
-  --color-orange: #fb923c;
-  --color-red:    #f87171;
-  --color-ink:    #111827;
-  --color-cream:  #f9fafb;
+  --color-pink:   #d6409f;
+  --color-purple: #6e56cf;
+  --color-blue:   #2563eb;
+  --color-cyan:   #0891b2;
+  --color-green:  #0d7d5a;
+  --color-yellow: #b45309;
+  --color-orange: #c2410c;
 
   --font-display: var(--font-display);
   --font-mono: var(--font-mono);
   --font-body: var(--font-body);
 
-  --animate-blob: blobFloat 14s ease-in-out infinite alternate;
-  --animate-spin-slow: spinSlow 30s linear infinite;
-  --animate-spin-slow-rev: spinSlowRev 40s linear infinite;
-  --animate-blink: blink 1s steps(1) infinite;
-  --animate-float-y: floatY 4s ease-in-out infinite;
-  --animate-wiggle: wiggle 2.4s ease-in-out infinite;
-  --animate-grad-pan: gradPan 5s linear infinite alternate;
-  --animate-ticker: ticker 28s linear infinite;
-  --animate-fade-up: fadeUp 0.7s ease-out both;
-  --animate-pulse-glow: pulseGlow 2s ease-out infinite;
+  --animate-blob: blobFloat 18s ease-in-out infinite alternate;
+  --animate-blink: blink 1.1s steps(1) infinite;
+  --animate-float-y: floatY 5s ease-in-out infinite;
+  --animate-grad-pan: gradPan 6s linear infinite alternate;
+  --animate-ticker: ticker 40s linear infinite;
+  --animate-fade-up: fadeUp 0.5s ease-out both;
 
   @keyframes blobFloat {
     0%   { transform: translate(0,0) scale(1); }
-    33%  { transform: translate(40px,-30px) scale(1.08); }
-    66%  { transform: translate(-25px,45px) scale(0.95); }
-    100% { transform: translate(15px,20px) scale(1.05); }
+    50%  { transform: translate(30px,-24px) scale(1.06); }
+    100% { transform: translate(-18px,26px) scale(0.97); }
   }
-  @keyframes spinSlow { to { transform: rotate(360deg); } }
-  @keyframes spinSlowRev { to { transform: rotate(-360deg); } }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-  @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
-  @keyframes wiggle { 0%,100%{transform:rotate(-3deg)} 50%{transform:rotate(3deg)} }
+  @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
   @keyframes gradPan {
     0% { background-position: 0% 50%; }
     100% { background-position: 200% 50%; }
   }
   @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
   @keyframes fadeUp {
-    from { opacity:0; transform:translateY(28px); }
+    from { opacity:0; transform:translateY(16px); }
     to   { opacity:1; transform:translateY(0); }
   }
-  @keyframes pulseGlow {
-    0%,100% { box-shadow: 0 0 0 0 rgba(244, 114, 182, 0.4); }
-    50% { box-shadow: 0 0 0 16px rgba(244, 114, 182, 0); }
-  }
 }
 
+/* ── Light: warm paper, near-black ink ── */
 :root {
-  --background: #f9fafb;
-  --foreground: #111827;
+  --background: #fbfaf8;
+  --foreground: #15151a;
   --card: #ffffff;
-  --card-foreground: #111827;
+  --card-foreground: #15151a;
   --popover: #ffffff;
-  --popover-foreground: #111827;
-  --primary: #111827;
-  --primary-foreground: #f9fafb;
-  --secondary: #f3f4f6;
-  --secondary-foreground: #111827;
-  --muted: #f3f4f6;
-  --muted-foreground: #6b7280;
-  --accent: #f3f4f6;
-  --accent-foreground: #111827;
-  --destructive: #ef4444;
-  --destructive-foreground: #f9fafb;
-  --border: #e5e7eb;
-  --input: #e5e7eb;
-  --ring: #3b82f6;
+  --popover-foreground: #15151a;
+  --primary: #15151a;
+  --primary-foreground: #fbfaf8;
+  --secondary: #f2f1ee;
+  --secondary-foreground: #15151a;
+  --muted: #f2f1ee;
+  --muted-foreground: #5c5c66;
+  --accent: #f0efec;
+  --accent-foreground: #15151a;
+  --destructive: #b3261e;
+  --destructive-foreground: #ffffff;
+  --border: #e4e2dd;
+  --input: #e4e2dd;
+  --ring: #0d7d5a;
 
-  --pink: #f472b6;
-  --purple: #818cf8;
-  --blue: #3b82f6;
-  --cyan: #22d3ee;
-  --green: #4ade80;
-  --yellow: #facc15;
-  --orange: #fb923c;
+  /* Body copy sits a notch below the heading ink — softer, still ~11:1. */
+  --prose: #33333d;
+  --brand: #0d7d5a;
+  --brand-soft: #e6f4ef;
 
-  --shadow-pop: 6px 6px 0 0 #111827;
+  --pink: #d6409f;
+  --purple: #6e56cf;
+  --blue: #2563eb;
+  --cyan: #0891b2;
+  --green: #0d7d5a;
+  --yellow: #b45309;
+  --orange: #c2410c;
 }
 
+/* ── Dark: near-black, warm off-white ── */
 .dark {
-  --background: #030712;
-  --foreground: #f9fafb;
-  --card: #111827;
-  --card-foreground: #f9fafb;
-  --popover: #111827;
-  --popover-foreground: #f9fafb;
-  --primary: #f9fafb;
-  --primary-foreground: #111827;
-  --secondary: #1f2937;
-  --secondary-foreground: #f9fafb;
-  --muted: #1f2937;
-  --muted-foreground: #9ca3af;
-  --accent: #1f2937;
-  --accent-foreground: #f9fafb;
-  --destructive: #7f1d1d;
-  --destructive-foreground: #f9fafb;
-  --border: #374151;
-  --input: #374151;
-  --ring: #4ade80;
+  --background: #0a0a0c;
+  --foreground: #f4f3f1;
+  --card: #131317;
+  --card-foreground: #f4f3f1;
+  --popover: #131317;
+  --popover-foreground: #f4f3f1;
+  --primary: #f4f3f1;
+  --primary-foreground: #0a0a0c;
+  --secondary: #1c1c21;
+  --secondary-foreground: #f4f3f1;
+  --muted: #1c1c21;
+  --muted-foreground: #a1a1ad;
+  --accent: #1c1c21;
+  --accent-foreground: #f4f3f1;
+  --destructive: #f87171;
+  --destructive-foreground: #0a0a0c;
+  --border: #26262c;
+  --input: #26262c;
+  --ring: #3ddc97;
 
-  --shadow-pop: 6px 6px 0 0 #22d3ee;
+  --prose: #cdccd4;
+  --brand: #3ddc97;
+  --brand-soft: #10241d;
+
+  --pink: #f0709c;
+  --purple: #a78bfa;
+  --blue: #60a5fa;
+  --cyan: #22d3ee;
+  --green: #3ddc97;
+  --yellow: #fbbf24;
+  --orange: #fb923c;
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    /* Slightly larger base so 1rem body copy is comfortable at arm's length. */
+    font-size: 17px;
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (max-width: 640px) {
+    html { font-size: 16px; }
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.65;
+    letter-spacing: -0.003em;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "cv05" 1, "cv11" 1, "ss01" 1;
   }
-  ::selection { background: #fecaca; color: #7f1d1d; }
+
+  /* Headings: tight tracking, balanced wrapping, and — critically — allowed
+     to break rather than push a 90px word past the viewport edge. */
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.032em;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+    word-break: normal;
+    hyphens: auto;
+  }
+  h1 { letter-spacing: -0.042em; }
+
+  p { text-wrap: pretty; }
+
+  /* The fixed header would otherwise eat the top of every anchor target. */
+  section[id], [id][data-anchor] { scroll-margin-top: 6rem; }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection { background: var(--brand); color: var(--background); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
@@ -168,23 +211,254 @@
 }
 
 @layer utilities {
-  .text-grad-juicy {
-    background-image: linear-gradient(90deg, #f472b6, #fb923c, #facc15, #4ade80, #22d3ee, #818cf8);
+  /* ── Prose ───────────────────────────────────────────────────
+     The single most important readability rule here is `max-width`.
+     Long-form text was running to ~95 characters per line; 62–70 is
+     the range people actually read comfortably.
+     ──────────────────────────────────────────────────────────── */
+  .prose-block {
+    max-width: 68ch;
+    color: var(--prose);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    letter-spacing: -0.002em;
+  }
+  .prose-block > * + * { margin-top: 1.15em; }
+  .prose-block strong { color: var(--foreground); font-weight: 600; }
+
+  .lead {
+    max-width: 62ch;
+    color: var(--prose);
+    font-size: 1.1875rem;
+    line-height: 1.6;
+    letter-spacing: -0.008em;
+  }
+
+  .measure { max-width: 68ch; }
+
+  /* Metadata / eyebrow labels. Wide tracking is legible at this size only
+     because the strings are two or three words long. */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted-foreground);
+  }
+
+  /* ── Surfaces ────────────────────────────────────────────────
+     Replaces the 6px hard-offset "sticker" shadow with a hairline
+     border and a soft shadow. Same structure, quieter voice.
+     ──────────────────────────────────────────────────────────── */
+  .surface {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-2xl);
+    box-shadow:
+      0 1px 2px color-mix(in oklab, var(--foreground) 5%, transparent),
+      0 12px 32px -20px color-mix(in oklab, var(--foreground) 22%, transparent);
+  }
+  .surface-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .surface-hover:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in oklab, var(--brand) 45%, var(--border));
+    box-shadow:
+      0 2px 4px color-mix(in oklab, var(--foreground) 6%, transparent),
+      0 20px 44px -22px color-mix(in oklab, var(--foreground) 30%, transparent);
+  }
+
+  .hairline { border: 1px solid var(--border); }
+
+  /* ── Buttons ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.15rem;
+    border-radius: 9999px;
+    border: 1px solid var(--border);
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    white-space: nowrap;
+    transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease, color 0.15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+
+  .btn-primary {
+    background: var(--foreground);
+    color: var(--background);
+    border-color: var(--foreground);
+  }
+  .btn-primary:hover { background: color-mix(in oklab, var(--foreground) 86%, var(--brand)); }
+
+  .btn-brand {
+    background: var(--brand);
+    color: var(--background);
+    border-color: var(--brand);
+  }
+  .btn-brand:hover { background: color-mix(in oklab, var(--brand) 85%, var(--foreground)); }
+
+  .btn-ghost {
+    background: var(--card);
+    color: var(--foreground);
+  }
+  .btn-ghost:hover { border-color: color-mix(in oklab, var(--brand) 50%, var(--border)); }
+
+  /* ── Tags ── */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: var(--muted);
+    color: var(--muted-foreground);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+  .tag-brand {
+    border-color: color-mix(in oklab, var(--brand) 35%, transparent);
+    background: var(--brand-soft);
+    color: var(--brand);
+  }
+
+  /* ── Text accents ──
+     `text-brand` / `bg-brand` / `border-brand` come from --color-brand in
+     @theme, so they are not redeclared here. */
+  .text-grad-brand {
+    background-image: linear-gradient(100deg, var(--brand), var(--foreground) 85%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
-  .text-grad-mint {
-    background-image: linear-gradient(135deg, #4ade80, #22d3ee);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+
+  .link-underline {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    text-decoration-color: color-mix(in oklab, var(--brand) 55%, transparent);
+    transition: text-decoration-color 0.15s ease, color 0.15s ease;
   }
-  .card-sticker-hover:hover {
-    transform: translate(-3px, -3px);
-    box-shadow: 9px 9px 0 0 var(--foreground);
+  .link-underline:hover {
+    color: var(--brand);
+    text-decoration-color: var(--brand);
   }
-  .dark .card-sticker-hover:hover {
-    box-shadow: 9px 9px 0 0 #22d3ee;
+
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100px;
+    z-index: 100;
+    padding: 0.7rem 1.15rem;
+    border-radius: 9999px;
+    border: 1px solid var(--foreground);
+    background: var(--background);
+    color: var(--foreground);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    transition: top 0.15s ease;
   }
+  .skip-link:focus { top: 1rem; }
+
+  /* ── Hero code sample ── */
+  .code-sample .kw { color: #ff92d0; }
+  .code-sample .fn { color: #7ee787; }
+  .code-sample .str { color: #f7d774; }
+  .code-sample .cl { color: #79c0ff; }
+  .code-sample .cm { color: #8b949e; font-style: italic; }
+  .code-sample .wh { color: #f0f6fc; }
+  .code-sample .op { color: #ff92d0; }
+  .code-sample .num { color: #d2a8ff; }
+  .code-sample .cursor-blink {
+    display: inline-block;
+    width: 7px;
+    height: 1em;
+    background: #79c0ff;
+    vertical-align: text-bottom;
+    margin-left: 2px;
+    animation: blink 1.1s steps(1) infinite;
+  }
+
+  /* ── Scroll reveal ──
+     Visible by default so the page still reads with JS off; the hidden
+     state only applies where scripting can reveal it again. */
+  .reveal { opacity: 1; transform: none; }
+
+  @media (scripting: enabled) {
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+    .reveal[data-visible="true"] { opacity: 1; transform: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; }
+  }
+}
+
+/* ── Print ───────────────────────────────────────────────────
+   Mainly for /resume, which recruiters do print. Forces the light
+   palette, drops chrome, and prints link targets so a paper copy
+   still carries the URLs.
+   ──────────────────────────────────────────────────────────── */
+@media print {
+  html {
+    font-size: 11.5pt;
+    background: #fff;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  /* Undo dark mode — printing a dark theme wastes toner and reads badly. */
+  .dark {
+    --background: #ffffff;
+    --foreground: #000000;
+    --card: #ffffff;
+    --muted: #ffffff;
+    --muted-foreground: #444444;
+    --prose: #1a1a1a;
+    --border: #cccccc;
+    --brand: #0d7d5a;
+  }
+
+  nav[aria-label="Primary"],
+  .no-print,
+  .skip-link,
+  [aria-hidden="true"] {
+    display: none !important;
+  }
+
+  main {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    max-width: none !important;
+  }
+
+  a { color: #000 !important; text-decoration: none !important; }
+
+  /* Print the destination of real links, but not of in-page anchors. */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #555;
+    word-break: break-all;
+  }
+
+  section, li, figure { break-inside: avoid; }
+  h1, h2, h3 { break-after: avoid; }
+
+  .reveal { opacity: 1 !important; transform: none !important; }
 }

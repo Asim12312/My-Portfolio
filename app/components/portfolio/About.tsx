@@ -1,115 +1,82 @@
+import { PROFILE, SKILL_GROUPS } from "@/lib/content";
+import { Reveal, SectionHeading } from "./Reveal";
+
 export function About() {
-  const chips = ["RAG", "AI Agents", "Python", "Next.js", "React.js", "Node.js", "MongoDB", "AWS", "Docker", "CI/CD"];
-  const chipColors = ["green", "cyan", "yellow", "blue", "orange", "green", "cyan", "yellow", "blue", "orange"] as const;
-
   return (
-    <section id="about" className="relative px-6 sm:px-10 py-28 max-w-7xl mx-auto">
-      <div className="grid lg:grid-cols-2 gap-16 items-center">
-        <div>
-          <div className="inline-block font-mono text-[10px] uppercase tracking-[0.35em] text-foreground px-3 py-1.5 rounded-full bg-[var(--green)] border-2 border-foreground mb-6">
-            02 — about
+    <section id="about" className="relative px-6 sm:px-10 py-20 sm:py-28 max-w-6xl mx-auto">
+      <SectionHeading eyebrow="01 — about">
+        I build the parts that have to keep working.
+      </SectionHeading>
+
+      <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-12 lg:gap-16">
+        <Reveal>
+          <div className="prose-block">
+            <p>
+              I&apos;m a Software Engineer at{" "}
+              <a href="https://venturedive.com" target="_blank" rel="noreferrer" className="link-underline font-medium">
+                VentureDive
+              </a>{" "}
+              and an AI Engineer, with a {PROFILE.education.degree} and a{" "}
+              <strong>{PROFILE.education.gradeShort}</strong> from {PROFILE.education.school}.
+            </p>
+            <p>
+              Most of my work sits at the seam between AI and ordinary product engineering:
+              retrieval pipelines that have to return the <strong>right</strong> document rather
+              than a plausible one, agents that take real actions, and the unglamorous auth,
+              validation and deployment work that decides whether any of it survives contact with
+              users.
+            </p>
+            <p>
+              Before VentureDive I spent about a year and a half building client software under an
+              experienced developer who owned the client relationships and reviewed everything I
+              wrote. That arrangement taught me more than the code did — how to read a vague
+              requirement, when to push back on scope, and what &ldquo;done&rdquo; actually means
+              when someone else is paying for it.
+            </p>
+            <p>
+              I&apos;d rather write one system carefully than six demos quickly. The three case
+              studies on this site are the honest version of what that looks like: what the
+              constraint was, what I chose, and what it cost.
+            </p>
           </div>
-          <h2 className="font-display font-extrabold text-[clamp(44px,7vw,96px)] leading-[0.92] tracking-tight mb-8">
-            engineer.{" "}
-            <span className="inline-block text-grad-mint">builder.</span>{" "}
-            <span className="inline-block text-foreground/40">shipper.</span>
-          </h2>
-          <p className="text-lg leading-relaxed text-muted-foreground mb-5">
-            I'm a <strong className="text-foreground">Software Engineer at VentureDive</strong> and{" "}
-            <strong className="text-foreground">AI Engineer</strong> with a{" "}
-            <span className="px-1.5 rounded bg-[var(--yellow)] text-foreground font-semibold">BS Software Engineering · 3.60 GPA</span>{" "}
-            from University of Central Punjab. I don't just push code — I architect systems that scale.
-          </p>
-          <p className="text-lg leading-relaxed text-muted-foreground mb-5">
-            From a <strong className="text-foreground">live FBR invoicing SaaS (Mohasib)</strong> to{" "}
-            <strong className="text-foreground">RAG pipelines & AI agents</strong> — plus 3+ years of
-            freelance full-stack delivery on Upwork — I build things that actually ship and hold up in production.
-          </p>
-          <div className="flex flex-wrap gap-2.5 mt-8">
-            {chips.map((c, i) => (
-              <span
-                key={c}
-                className="font-mono text-[11px] font-bold px-3 py-1.5 rounded-full border-2 border-foreground text-foreground transition-transform hover:-translate-y-1"
-                style={{
-                  background: `var(--${chipColors[i]})`,
-                  boxShadow: "3px 3px 0 0 var(--color-foreground)",
-                }}
-              >
-                {c}
-              </span>
+        </Reveal>
+
+        <Reveal delay={80}>
+          <dl className="divide-y divide-border border-y border-border">
+            {[
+              { k: "Currently", v: "Software Engineer Intern, VentureDive — Lahore" },
+              { k: "Focus", v: "RAG pipelines, AI agents, full-stack product engineering" },
+              { k: "Education", v: `${PROFILE.education.degree}, ${PROFILE.education.school} — ${PROFILE.education.gradeShort}` },
+              { k: "Based in", v: PROFILE.location },
+              { k: "Open to", v: PROFILE.availability.detail },
+            ].map((row) => (
+              <div key={row.k} className="py-4">
+                <dt className="label mb-1.5">{row.k}</dt>
+                <dd className="text-[15px] text-foreground leading-relaxed">{row.v}</dd>
+              </div>
             ))}
-          </div>
-        </div>
+          </dl>
+        </Reveal>
+      </div>
 
-        {/* Visual collage */}
-        <div className="relative h-[520px] hidden lg:block">
-          <div
-            className="absolute top-4 left-4 w-72 rounded-2xl border-2 border-foreground p-5 card-sticker-hover bg-[var(--cyan)]"
-            style={{ boxShadow: "8px 8px 0 0 var(--color-foreground)", transform: "rotate(-4deg)" }}
-          >
-            <div className="font-mono text-[10px] uppercase tracking-widest text-foreground/70 mb-2">// stack</div>
-            <div className="font-display font-extrabold text-3xl text-foreground">AI +<br/>Full-Stack</div>
-          </div>
-
-          <div
-            className="absolute top-12 right-2 w-60 rounded-2xl border-2 border-foreground p-5 bg-[var(--yellow)] card-sticker-hover"
-            style={{ boxShadow: "8px 8px 0 0 var(--color-foreground)", transform: "rotate(5deg)" }}
-          >
-            <div className="text-3xl mb-2">🎓</div>
-            <div className="font-display font-extrabold text-2xl text-foreground leading-tight">3.60 GPA</div>
-            <div className="font-mono text-[10px] mt-1 text-foreground/70">UCP · Software Eng.</div>
-          </div>
-
-          <div
-            className="absolute bottom-32 left-12 w-64 rounded-2xl border-2 border-foreground p-5 bg-[var(--orange)] card-sticker-hover"
-            style={{ boxShadow: "8px 8px 0 0 var(--color-foreground)", transform: "rotate(3deg)" }}
-          >
-            <div className="font-mono text-[10px] uppercase tracking-widest text-foreground/70 mb-2">// ai systems</div>
-            <div className="font-display font-extrabold text-xl text-foreground leading-tight">RAG & Agents</div>
-            <div className="font-mono text-[10px] mt-1 text-foreground/70">Python · LLMs · Vector Search</div>
-          </div>
-
-          <div
-            className="absolute bottom-6 right-10 w-56 rounded-2xl border-2 border-foreground p-5 bg-[var(--green)] card-sticker-hover"
-            style={{ boxShadow: "8px 8px 0 0 var(--color-foreground)", transform: "rotate(-6deg)" }}
-          >
-            <div className="font-mono text-[10px] uppercase tracking-widest text-foreground/70 mb-2">// devops</div>
-            <div className="font-display font-extrabold text-xl text-foreground leading-tight">Docker → CI/CD</div>
-            <div className="font-mono text-[10px] mt-1 text-foreground/70">build · ship · iterate</div>
-          </div>
-
-          {/* center monogram */}
-          <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-36 h-36 rounded-2xl border-4 border-foreground flex items-center justify-center font-display font-extrabold text-5xl text-foreground"
-            style={{
-              background: "var(--background)",
-              boxShadow: "8px 8px 0 0 var(--color-foreground)",
-            }}
-          >
-            MA
-          </div>
-        </div>
-
-        {/* mobile compact stickers */}
-        <div className="grid grid-cols-2 gap-4 lg:hidden">
-          {[
-            { icon: "//", title: "RAG & Agents", sub: "Python · LLMs", bg: "var(--orange)" },
-            { icon: "{}", title: "Docker CI/CD", sub: "AWS · ship fast", bg: "var(--green)" },
-            { icon: "()", title: "3.60 GPA", sub: "UCP · SE", bg: "var(--yellow)" },
-            { icon: "<>", title: "Full-Stack", sub: "MERN + Next + TS", bg: "var(--cyan)" },
-          ].map((c) => (
-            <div
-              key={c.title}
-              className="rounded-2xl border-2 border-foreground p-5 text-foreground"
-              style={{ background: c.bg, boxShadow: "5px 5px 0 0 var(--color-foreground)" }}
-            >
-              <div className="font-mono font-bold text-xl mb-1 opacity-60">{c.icon}</div>
-              <div className="font-display font-extrabold text-lg">{c.title}</div>
-              <div className="font-mono text-[10px] opacity-80">{c.sub}</div>
+      {/* Stack, as a scannable table rather than a rotating orbit of logos. */}
+      <Reveal className="mt-16" >
+        <h3 className="label mb-6">Stack</h3>
+        <dl className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-7">
+          {SKILL_GROUPS.map((g) => (
+            <div key={g.key}>
+              <dt className="text-[15px] font-semibold text-foreground mb-2.5">{g.title}</dt>
+              <dd>
+                <ul className="flex flex-wrap gap-1.5">
+                  {g.tags.map((t) => (
+                    <li key={t} className="tag">{t}</li>
+                  ))}
+                </ul>
+              </dd>
             </div>
           ))}
-        </div>
-      </div>
+        </dl>
+      </Reveal>
     </section>
   );
 }
